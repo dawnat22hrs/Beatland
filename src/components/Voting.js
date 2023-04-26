@@ -8,14 +8,21 @@ import * as DialogBase from "@radix-ui/react-dialog";
 
 import { Candidate } from "./Candidate";
 
-export const Voting = ({ voting, category }) => {
+export const Voting = ({ voting, category}) => {
   const { data: candidates, status: statusCandidates } = useCandidate(
     voting._id
   );
-  const { data: date, status: statusDate } = useDate();
+  const { data: date, status: statusDate } = useDate(category.createDate);
 
-  console.log(date)
+  const parseDate = () => {
+    /*const USdate = new Intl.DateTimeFormat('en-US')
+    const date = createDate
+    const d = USdate.format(date)
+    console.log(d)*/
+  }
 
+  parseDate()
+  
   const [youCanVote, setYouCanVote] = useState(false);
 
   const elementRef = useRef();
@@ -70,9 +77,12 @@ export const Voting = ({ voting, category }) => {
         className="voiting__cards-participants"
       >
         {statusDate === "success" &&
-        date.map((date) => (
+        date.map((date) => {
+          const startDay = new Date(date.createDate)
+          const endDay = new Date(date.endDate)
+        return (
           <div>
-            <h3 className="voiting__category-data">{date.createDate} - {date.endDate}</h3>
+            <h3 className="voiting__category-data">{startDay.getDate()} {startDay.toLocaleString('en', {month: "long"} )} - {endDay.getDate()} {endDay.toLocaleString('en', {month: "long"} )}</h3>
             {statusCandidates === "success" &&
             candidates.map((candidate) => (
               <Candidate
@@ -82,8 +92,8 @@ export const Voting = ({ voting, category }) => {
                 voting={voting}
               />
             ))}
-          </div>
-        ))}
+          </div>)
+        })}
       </div>
     </>
   );
