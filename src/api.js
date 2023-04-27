@@ -22,15 +22,10 @@ export const Api = {
   },
   voting: {
     getByCategory: async (category) => {
-      const result = await httpClient.get(`/voting?category=${category}`);
+      const result = await httpClient.get(`/voting?category=${category}&sort=-createDate`);
 
       return result.data.docs.filter((voting) => voting.active);
     },
-    getByDate: async (date) => {
-      const result = await httpClient.get(`/voting?sort=${date}`)
-      
-      return result.data.docs.filter((voting) => voting.active)
-    }
   },
   votingHistory: {
     vote: async (body) => {
