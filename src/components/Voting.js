@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useContext, useState } from "react";
 import { useCandidate } from "../hooks";
 import { createPortal } from "react-dom";
-import { useDate } from "../hooks/useDate"
 
 
 import * as DialogBase from "@radix-ui/react-dialog";
@@ -12,16 +11,6 @@ export const Voting = ({ voting, category}) => {
   const { data: candidates, status: statusCandidates } = useCandidate(
     voting._id
   );
-  const { data: date, status: statusDate } = useDate(category.createDate);
-
-  const parseDate = () => {
-    /*const USdate = new Intl.DateTimeFormat('en-US')
-    const date = createDate
-    const d = USdate.format(date)
-    console.log(d)*/
-  }
-
-  parseDate()
   
   const [youCanVote, setYouCanVote] = useState(false);
 
@@ -76,24 +65,15 @@ export const Voting = ({ voting, category}) => {
         id={voting._id}
         className="voiting__cards-participants"
       >
-        {statusDate === "success" &&
-        date.map((date) => {
-          const startDay = new Date(date.createDate)
-          const endDay = new Date(date.endDate)
-        return (
-          <div>
-            <h3 className="voiting__category-data">{startDay.getDate()} {startDay.toLocaleString('en', {month: "long"} )} - {endDay.getDate()} {endDay.toLocaleString('en', {month: "long"} )}</h3>
-            {statusCandidates === "success" &&
-            candidates.map((candidate) => (
-              <Candidate
-                key={candidate._id}
-                candidate={candidate}
-                category={category}
-                voting={voting}
-              />
-            ))}
-          </div>)
-        })}
+        {statusCandidates === "success" &&
+        candidates.map((candidate) => (
+          <Candidate
+            key={candidate._id}
+            candidate={candidate}
+            category={category}
+            voting={voting}
+          />
+        ))}
       </div>
     </>
   );

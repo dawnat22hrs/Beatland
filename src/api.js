@@ -26,8 +26,8 @@ export const Api = {
 
       return result.data.docs.filter((voting) => voting.active);
     },
-    getByDate: async (createDate) => {
-      const result = await httpClient.get(`/voting?sort=${createDate}`)
+    getByDate: async (date) => {
+      const result = await httpClient.get(`/voting?sort=${date}`)
       
       return result.data.docs.filter((voting) => voting.active)
     }
