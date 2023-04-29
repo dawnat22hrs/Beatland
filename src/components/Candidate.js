@@ -1,12 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { ButtonVote } from "./ButtonVote";
+
+import { useVote } from "../hooks";
+
+import * as DialogBase from "@radix-ui/react-dialog"
+import { createPortal } from "react-dom";
 
 export const Candidate = ({ candidate, category, voting }) => {
   const youtubeLink = candidate.candidate.links
     .find((link) => link.name === "youtube")
     ?.value?.replace("watch?v=", "embed/");
 
+  const [openVideo, setOpenVideo] = useState(false);
+
+  const vote = useVote(() => setOpenVideo(true));
+
   return (
+    <>
+    {createPortal(
+        <DialogBase.Root open={openVideo} onOpenChange={setOpenVideo}>
+          <DialogBase.Trigger asChild></DialogBase.Trigger>
+          <DialogBase.Portal>
+            <DialogBase.Overlay className="DialogOverlay" >
+              <DialogBase.Close asChild>
+                <button className="IconButton" aria-label="Close"></button>
+              </DialogBase.Close>
+            </DialogBase.Overlay>
+            <DialogBase.Content className="VideoContent">
+            <iframe  src={youtubeLink?.value ?? null} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen className="video-block"></iframe>
+            </DialogBase.Content>
+          </DialogBase.Portal>
+        </DialogBase.Root>,
+        document.getElementById("dialog-root-success")
+      )}
     <div className="card-participant">
       <div className="card-participant__video">
         <iframe
@@ -18,7 +44,12 @@ export const Candidate = ({ candidate, category, voting }) => {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen
         ></iframe>
-        <div className="video__play-btn">
+        <div
+          onClick={() =>
+            window.auth?.user ? vote({ candidate, voting }) : setOpenVideo(true)
+          }
+          className="video__play-btn"
+        >
           <img
             src="https://static.tildacdn.com/tild6563-6463-4631-a563-646331336139/play-min.svg"
             alt="play"
@@ -26,7 +57,6 @@ export const Candidate = ({ candidate, category, voting }) => {
         </div>
       </div>
       <div className="participant__info">
-        <p className="participant__info__country">Indonesia</p>
         <p className="participant__info__name">Konstantin petrov</p>
         <div className="participant__info__voiting">
           <div className="votes">
@@ -41,5 +71,6 @@ export const Candidate = ({ candidate, category, voting }) => {
         </div>
       </div>
     </div>
+    </>
   );
 };

@@ -31,7 +31,7 @@ export const ButtonVote = ({ voting, candidate }) => {
         disabled={true}
         className="Button violet"
       >
-        Vote
+        Voted
       </button>
     );
   }
@@ -39,7 +39,12 @@ export const ButtonVote = ({ voting, candidate }) => {
   if (isSuccessVoted) {
     return (
       <>
-        <button disabled={true} className="Button violet">
+        <button disabled={true}
+          onClick={() =>
+            window.auth?.user ? vote({ candidate, voting }) : setOpenSuccess(true)
+          }
+          className="Button violet" 
+        >
           Vote
         </button>
         {createPortal(
@@ -64,6 +69,17 @@ export const ButtonVote = ({ voting, candidate }) => {
                 ></div>
                 <DialogBase.Close asChild>
                   <button className="IconButton" aria-label="Close"></button>
+                </DialogBase.Close>
+                <DialogBase.Close asChild>
+                <button
+                    onClick={() => {
+                      localStorage.setItem("scrollTo", voting);
+                      window?.auth?.redirectToLoginPage();
+                    }}
+                    className="Button ButtonModal"
+                  >
+                    OK
+                  </button>
                 </DialogBase.Close>
               </DialogBase.Content>
             </DialogBase.Portal>

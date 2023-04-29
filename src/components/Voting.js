@@ -1,21 +1,21 @@
 import React, { useEffect, useRef, useContext, useState } from "react";
 import { useCandidate } from "../hooks";
-import { createPortal } from "react-dom";
-
 import { useVotings } from "../hooks";
+import { createPortal } from "react-dom";
 
 
 import * as DialogBase from "@radix-ui/react-dialog";
 
 import { Candidate } from "./Candidate";
 
-export const Voting = ({ voting, category}) => {
+export const Voting = ({ voting, category }) => {
   const { data: candidates, status: statusCandidates } = useCandidate(
     voting._id
   );
   const { data: votings, status: statusVotings } = useVotings(category._id);
   
   const [youCanVote, setYouCanVote] = useState(false);
+
 
   const elementRef = useRef();
 
@@ -56,7 +56,18 @@ export const Voting = ({ voting, category}) => {
                 }}
               ></div>
               <DialogBase.Close asChild>
-                <button className="IconButton" aria-label="Close">ksjdfknsdfnj</button>
+                <button className="IconButton" aria-label="Close"></button>
+              </DialogBase.Close>
+              <DialogBase.Close asChild>
+              <button
+                    onClick={() => {
+                      localStorage.setItem("scrollTo", voting);
+                      window?.auth?.redirectToLoginPage();
+                    }}
+                    className="Button ButtonModal"
+                  >
+                    OK
+                  </button>
               </DialogBase.Close>
             </DialogBase.Content>
           </DialogBase.Portal>
