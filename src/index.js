@@ -16,7 +16,7 @@ import { UserVotingHistoryContext } from "./context";
 const queryClient = new QueryClient();
 
 const Main = () => {
-  const { data: rootCategory, status } = useRootCategory("Beatland Festival");
+  const { data: rootCategory, status } = useRootCategory("beatland");
 
   const { data: categories, status: statusCategories } = useChildrenCategory(
     rootCategory?._id ?? null
