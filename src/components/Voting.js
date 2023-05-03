@@ -80,27 +80,27 @@ export const Voting = ({ voting, category }) => {
           const endDay = new Date(voting.endDate)
           return (
             <div>
-              <h3 className="voiting__category-data" key={voting._id}>{startDay.getDate()} {startDay.toLocaleString('en', {month: "long"} )} - {endDay.getDate()} {endDay.toLocaleString('en', {month: "long"} )}</h3>
+              <h3 className="voiting__category-date" key={voting._id}>{startDay.getDate()} {startDay.toLocaleString('en', {month: "long"} )} - {endDay.getDate()} {endDay.toLocaleString('en', {month: "long"} )}</h3>
+              <div
+                ref={elementRef}
+                id={voting._id}
+                className="voiting__cards-participants"
+              >
+        
+                {statusCandidates === "success" &&
+                candidates.map((candidate) => (
+                  <Candidate
+                    key={candidate._id}
+                    candidate={candidate}
+                    category={category}
+                    voting={voting}
+                  />
+                ))}
+              </div>
             </div>
           )
         })
       } 
-      <div
-        ref={elementRef}
-        id={voting._id}
-        className="voiting__cards-participants"
-      >
-        
-        {statusCandidates === "success" &&
-        candidates.map((candidate) => (
-          <Candidate
-            key={candidate._id}
-            candidate={candidate}
-            category={category}
-            voting={voting}
-          />
-        ))}
-      </div>
     </>
   );
 };

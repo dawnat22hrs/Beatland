@@ -8,8 +8,8 @@ const httpClient = axios.create({
 export const Api = {
   category: {
     getRoot: async (root) => {
-      const result = await httpClient.get(`/category?alias=${root}`);
-
+      const result = await httpClient.get(`/category?alias=beatland`);
+      
       const rootCategory = result.data.docs[0];
 
       return rootCategory;
@@ -22,7 +22,7 @@ export const Api = {
   },
   voting: {
     getByCategory: async (category) => {
-      const result = await httpClient.get(`/voting?category=${category}&sort=-createDate`);
+      const result = await httpClient.get(`/voting?category=${category}&sort=-createDate,-endDate`);
 
       return result.data.docs.filter((voting) => voting.active);
     },

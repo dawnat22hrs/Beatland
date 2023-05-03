@@ -156,7 +156,7 @@ input::-moz-focus-inner {
   margin-bottom: 25px;
 }
 
-.section__voiting .voiting__category-data {
+.section__voiting .voiting__category-date {
   font-family: 'FuturaNew',Arial,sans-serif;
   font-size: 20px;
   font-weight: 600;
@@ -164,7 +164,7 @@ input::-moz-focus-inner {
   text-transform: uppercase;
   color: #ffffff;
   
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 @media (min-width: 960px) and (max-width: 1199px) {
@@ -200,6 +200,8 @@ input::-moz-focus-inner {
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+
+  margin-bottom: 30px;
 }
 
 .section__voiting .voiting__cards-participants .card-participant {
