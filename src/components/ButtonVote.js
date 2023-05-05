@@ -71,15 +71,7 @@ export const ButtonVote = ({ voting, candidate }) => {
                   <button className="IconButton" aria-label="Close"></button>
                 </DialogBase.Close>
                 <DialogBase.Close asChild>
-                <button
-                    onClick={() => {
-                      localStorage.setItem("scrollTo", voting);
-                      window?.auth?.redirectToLoginPage();
-                    }}
-                    className="Button ButtonModal"
-                  >
-                    OK
-                  </button>
+                <button className="Button ButtonModal">OK</button>
                 </DialogBase.Close>
               </DialogBase.Content>
             </DialogBase.Portal>
