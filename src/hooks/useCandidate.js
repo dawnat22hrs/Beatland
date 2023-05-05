@@ -3,5 +3,5 @@ import { Api } from "../api";
 
 export const useCandidate = (voting) =>
   useQuery(["candidate", voting], () => Api.candidate.getCandidate(voting), {
-    refetchInterval: 1500,
+    refetchInterval: 5000,
   });
