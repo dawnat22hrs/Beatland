@@ -79,8 +79,8 @@ export const Voting = ({ voting, category }) => {
           const startDay = new Date(voting.createDate)
           const endDay = new Date(voting.endDate)
           return (
-            <div>
-              <h3 className="voiting__category-date" key={voting._id}>{startDay.getDate()} {startDay.toLocaleString('en', {month: "long"} )} - {endDay.getDate()} {endDay.toLocaleString('en', {month: "long"} )}</h3>
+            <div key={voting._id}>
+              <h3 className="voiting__category-date" >{startDay.getDate()} {startDay.toLocaleString('en', {month: "long"} )} - {endDay.getDate()} {endDay.toLocaleString('en', {month: "long"} )}</h3>
               <div
                 ref={elementRef}
                 id={voting._id}
