@@ -11,6 +11,12 @@ export const Candidate = ({ candidate, category, voting }) => {
     .find((link) => link.name === "youtube")
     ?.value?.replace("watch?v=", "embed/");
 
+    console.log(candidate.candidate.links[0].value)
+
+    const nameCandidate = candidate.candidate.links[0].name
+
+    const linkYoutubeCandidate = candidate.candidate.links[0].value
+
   const [openVideo, setOpenVideo] = useState(false);
 
   const vote = useVote(() => setOpenVideo(true));
@@ -27,7 +33,7 @@ export const Candidate = ({ candidate, category, voting }) => {
               </DialogBase.Close>
             </DialogBase.Overlay>
             <DialogBase.Content className="VideoContent">
-            <iframe  src={youtubeLink?.value ?? null} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen className="video-block"></iframe>
+            <iframe  src={linkYoutubeCandidate ?? null} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen className="video-block"></iframe>
             </DialogBase.Content>
           </DialogBase.Portal>
         </DialogBase.Root>,
@@ -38,7 +44,7 @@ export const Candidate = ({ candidate, category, voting }) => {
         <iframe
           width="560"
           height="315"
-          src={youtubeLink?.value ?? null}
+          src={linkYoutubeCandidate ?? null}
           title="YouTube video player"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -57,7 +63,7 @@ export const Candidate = ({ candidate, category, voting }) => {
         </div>
       </div>
       <div className="participant__info">
-        <p className="participant__info__name">Konstantin petrov</p>
+        <p className="participant__info__name">{nameCandidate}</p>
         <div className="participant__info__voiting">
           <div className="votes">
             <span className="votes__number">{candidate.score}</span>

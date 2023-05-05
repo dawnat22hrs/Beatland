@@ -15,7 +15,7 @@ export const Api = {
       return rootCategory;
     },
     getChildren: async (parent) => {
-      const result = await httpClient.get(`/category?parent=${parent}`);
+      const result = await httpClient.get(`/category?parent=${parent}&sort=name`);
 
       return result.data.docs;
     },
