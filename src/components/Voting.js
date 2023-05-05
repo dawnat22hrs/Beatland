@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useContext, useState } from "react";
 import { useCandidate } from "../hooks";
-import { useVotings } from "../hooks";
 import { createPortal } from "react-dom";
 
 
@@ -12,7 +11,6 @@ export const Voting = ({ voting, category }) => {
   const { data: candidates, status: statusCandidates } = useCandidate(
     voting._id
   );
-  const { data: votings, status: statusVotings } = useVotings(category._id);
   
   const [youCanVote, setYouCanVote] = useState(false);
 
@@ -74,33 +72,23 @@ export const Voting = ({ voting, category }) => {
         </DialogBase.Root>,
         document.getElementById("dialog-root-success")
       )}
-      {statusVotings === "success" &&
-        votings.map((voting) => {
-          const startDay = new Date(voting.createDate)
-          const endDay = new Date(voting.endDate)
-          return (
-            <div key={voting._id}>
-              <h3 className="voiting__category-date" >{startDay.getDate()} {startDay.toLocaleString('en', {month: "long"} )} - {endDay.getDate()} {endDay.toLocaleString('en', {month: "long"} )}</h3>
-              <div
-                ref={elementRef}
-                id={voting._id}
-                className="voiting__cards-participants"
-              >
+
+      <div
+        ref={elementRef}
+        id={voting._id}
+        className="voiting__cards-participants"
+      >
         
-                {statusCandidates === "success" &&
-                candidates.map((candidate) => (
-                  <Candidate
-                    key={candidate._id}
-                    candidate={candidate}
-                    category={category}
-                    voting={voting}
-                  />
-                ))}
-              </div>
-            </div>
-          )
-        })
-      } 
+        {statusCandidates === "success" &&
+        candidates.map((candidate) => (
+          <Candidate
+            key={candidate._id}
+            candidate={candidate}
+            category={category}
+            voting={voting}
+          />
+        ))}
+      </div>
     </>
   );
 };
